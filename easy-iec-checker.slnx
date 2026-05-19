@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="easy-iec-checker.vcxproj" Id="032b1f93-d450-4f85-a334-ce6b9a5088f8" />
+</Solution>

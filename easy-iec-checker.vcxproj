@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>18.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{032b1f93-d450-4f85-a334-ce6b9a5088f8}</ProjectGuid>
+    <RootNamespace>easyiecchecker</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="ForbiddenPatternRule.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="RealComparisonRule.cpp" />
+    <ClCompile Include="StaticAnalyzer.cpp" />
+    <ClCompile Include="StructuralRulesRule.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\aisdrv.st" />
+    <None Include="resource\AISDrvData.st" />
+    <None Include="resource\aisdrvlib.st" />
+    <None Include="resource\aisdrvlib_main.st" />
+    <None Include="resource\aisdrv_main.st" />
+    <None Include="resource\AISUserData.st" />
+    <None Include="resource\alg_AutoAlgorithm.st" />
+    <None Include="resource\alg_UserAlgorithm_IN.st" />
+    <None Include="resource\argusdrv.st" />
+    <None Include="resource\ArgusDrvData.st" />
+    <None Include="resource\argusdrvlib.st" />
+    <None Include="resource\CFG_Alarm.st" />
+    <None Include="resource\CFG_AM.st" />
+    <None Include="resource\cfg_am_com.st" />
+    <None Include="resource\cfg_am_com_mod.st" />
+    <None Include="resource\CFG_AM_mod.st" />
+    <None Include="resource\CFG_Modes.st" />
+    <None Include="resource\Control_DO.st" />
+    <None Include="resource\FC_CheckDO_mod.st" />
+    <None Include="resource\FC_initators.st" />
+    <None Include="resource\imit.st" />
+    <None Include="resource\InitEvalPar.st" />
+    <None Include="resource\LogicalProgram.st" />
+    <None Include="resource\LogicalProgram2.st" />
+    <None Include="resource\main.st" />
+    <None Include="resource\mdlDiag.st" />
+    <None Include="resource\memcpy.st" />
+    <None Include="resource\PRU_Link.st" />
+    <None Include="resource\SentSignals.st" />
+    <None Include="resource\UserFunction.st" />
+    <None Include="resource\User_Function_IM.st" />
+    <None Include="resource\usoNum.st" />
+    <None Include="resource\val.st" />
+    <None Include="resource\Years_and_Months.st" />
+    <None Include="resource\_DB_AMDescr.st" />
+    <None Include="resource\_DB_AMDescr_mod.st" />
+    <None Include="resource\_DB_Anpar.st" />
+    <None Include="resource\_DB_AODescr.st" />
+    <None Include="resource\_DB_APDescr.st" />
+    <None Include="resource\_DB_cycleTime.st" />
+    <None Include="resource\_DB_DIDescr.st" />
+    <None Include="resource\_DB_DODescr.st" />
+    <None Include="resource\_DB_DPar.st" />
+    <None Include="resource\_DB_EVDescr.st" />
+    <None Include="resource\_DB_GlobalParams.st" />
+    <None Include="resource\_DB_ParamUnits.st" />
+    <None Include="resource\_DB_TMRDescr.st" />
+    <None Include="resource\_FB_Buttons.st" />
+    <None Include="resource\_FC_AMresourceHandler.st" />
+    <None Include="resource\_FC_AMresourceHandler_mod.st" />
+    <None Include="resource\_fc_aninput.st" />
+    <None Include="resource\_fc_anoutput.st" />
+    <None Include="resource\_FC_ButtonsAdd.st" />
+    <None Include="resource\_FC_CheckDO.st" />
+    <None Include="resource\_FC_CheckDO_mod.st" />
+    <None Include="resource\_fc_diginput.st" />
+    <None Include="resource\_fc_digoutput.st" />
+    <None Include="resource\_FC_Drivers.st" />
+    <None Include="resource\_fc_evboundcompare.st" />
+    <None Include="resource\_fc_evparhandler.st" />
+    <None Include="resource\_fc_handlecommands.st" />
+    <None Include="resource\_FC_InfoPLC.st" />
+    <None Include="resource\_fc_MdlDiag.st" />
+    <None Include="resource\_fc_mdlexchange.st" />
+    <None Include="resource\_fc_measboundcompare.st" />
+    <None Include="resource\_fc_timerhandler.st" />
+    <None Include="resource\_fc_timerhandler_test.st" />
+    <None Include="resource\_fc_updateglobaldata.st" />
+    <None Include="resource\_FC_UpdateLST.st" />
+    <None Include="resource\_FC_userAMresourceHandler(1).st" />
+    <None Include="resource\_FC_userAMresourceHandler.st" />
+    <None Include="resource\_io.st" />
+    <None Include="resource\_ModuleStateDiag.st" />
+    <None Include="resource\_prg_rom.st" />
+    <None Include="resource\_stp.st" />
+    <None Include="resource\_UDT_System.st" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ForbiddenPatternRule.h" />
+    <ClInclude Include="RealComparisonRule.h" />
+    <ClInclude Include="StaticAnalyzer.h" />
+    <ClInclude Include="StructuralRulesRule.h" />
+    <ClInclude Include="_IRule.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

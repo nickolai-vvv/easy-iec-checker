@@ -1,0 +1,176 @@
+(*
+    all_methods_test.st
+
+    Тестовый файл для статического анализатора.
+    ВНИМАНИЕ: файл намеренно содержит запрещённые конструкции.
+
+    В этом файле собраны проверки:
+    - REAL_TO_INT(...)
+    - REAL_TO_DINT(...)
+    - LREAL_TO_INT(...)
+    - LREAL_TO_DINT(...)
+    - REAL_TO_WORD(...)
+    - REAL_TO_DWORD(...)
+    - DINT_TO_INT(...)
+    - DWORD_TO_INT(...)
+    - WORD_TO_INT(...)
+    - сравнение REAL через =
+    - сравнение REAL через <>
+    - деление / без проверки делителя на 0
+    - CASE ... END_CASE без ELSE
+    - WHILE ... DO
+    - REPEAT ... UNTIL
+    - EXIT внутри циклов
+    - RETURN в середине логики
+    - пустой ELSE
+    - пустая ветка CASE
+    - присваивание без ELSE, когда переменная задаётся только в одной ветке IF
+    - магические числа в условиях
+*)
+
+PROGRAM AllMethodsTest
+VAR
+    r1          : REAL;
+    r2          : REAL;
+    lr1         : LREAL;
+
+    i1          : INT;
+    i2          : INT;
+    di1         : DINT;
+    w1          : WORD;
+    dw1         : DWORD;
+
+    x           : INT;
+    y           : INT;
+    z           : INT;
+    divisor     : INT;
+    resultValue : INT;
+
+    flag        : BOOL;
+    mode        : INT;
+END_VAR
+
+
+(* 1. Блокируем REAL_TO_INT(...) *)
+i1 := REAL_TO_INT(r1);
+
+
+(* 2. Блокируем REAL_TO_DINT(...) *)
+di1 := REAL_TO_DINT(r1);
+
+
+(* 3. Блокируем LREAL_TO_INT(...) *)
+i1 := LREAL_TO_INT(lr1);
+
+
+(* 4. Блокируем LREAL_TO_DINT(...) *)
+di1 := LREAL_TO_DINT(lr1);
+
+
+(* 5. Блокируем REAL_TO_WORD(...) *)
+w1 := REAL_TO_WORD(r1);
+
+
+(* 6. Блокируем REAL_TO_DWORD(...) *)
+dw1 := REAL_TO_DWORD(r1);
+
+
+(* 7. Блокируем DINT_TO_INT(...) *)
+i1 := DINT_TO_INT(di1);
+
+
+(* 8. Блокируем DWORD_TO_INT(...) *)
+i1 := DWORD_TO_INT(dw1);
+
+
+(* 9. Блокируем WORD_TO_INT(...) *)
+i1 := WORD_TO_INT(w1);
+
+
+(* 10. Блокируем сравнение REAL через = *)
+IF r1 = r2 THEN
+    flag := TRUE;
+END_IF;
+
+(* 10.1 Блокируем сравнение REAL через = *)
+IF i1 = r2 THEN
+    flag := TRUE;
+END_IF;
+
+
+(* 11. Блокируем сравнение REAL через <> *)
+IF r1 <> r2 THEN
+    flag := FALSE;
+END_IF;
+
+
+(* 13. Блокируем CASE ... END_CASE без ELSE *)
+CASE mode OF
+    1:
+        x := 10;
+    2:
+        x := 20;
+END_CASE;
+
+
+(* 14. Блокируем WHILE ... DO *)
+WHILE x < 10 DO
+    x := x + 1;
+
+    (* 16. Блокируем EXIT внутри циклов *)
+    IF x > 5 THEN
+        EXIT;
+    END_IF;
+END_WHILE;
+
+
+(* 15. Блокируем REPEAT ... UNTIL *)
+REPEAT
+    y := y + 1;
+UNTIL y > 10
+END_REPEAT;
+
+
+(* 17. Блокируем RETURN в середине логики *)
+RETURN;
+
+x := x + 1;
+
+
+(* 18. Блокируем пустой ELSE *)
+IF flag THEN
+    y := 1;
+ELSE
+END_IF;
+
+
+(* 19. Блокируем пустую ветку CASE *)
+CASE mode OF
+    1:
+        z := 100;
+    2:
+    3:
+        z := 300;
+ELSE
+    z := 0;
+END_CASE;
+
+
+(* 20. Блокируем присваивание без ELSE,
+       когда переменная задаётся только в одной ветке IF.
+
+       Важно: z НЕ инициализирована выше и НЕ присваивалась до этого IF
+       в нормальной безопасной ветке, поэтому правило должно сработать.
+*)
+IF flag THEN
+    z := 123;
+END_IF;
+
+
+(* 21. Блокируем магические числа в условиях *)
+IF x > 123 THEN
+    y := 1;
+END_IF;
+
+
+END_PROGRAM

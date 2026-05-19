@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков\_rules">
+      <UniqueIdentifier>{1d2a5308-f066-4bb8-9406-aa4ee59eb5a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\_rules">
+      <UniqueIdentifier>{63c89180-65bb-4286-b64c-2bbb8f8d2bc0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticAnalyzer.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="ForbiddenPatternRule.cpp">
+      <Filter>Исходные файлы\_rules</Filter>
+    </ClCompile>
+    <ClCompile Include="RealComparisonRule.cpp">
+      <Filter>Исходные файлы\_rules</Filter>
+    </ClCompile>
+    <ClCompile Include="StructuralRulesRule.cpp">
+      <Filter>Исходные файлы\_rules</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\_DB_AMDescr.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_DB_AMDescr_mod.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_DB_Anpar.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_DB_AODescr.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_DB_APDescr.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_DB_cycleTime.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_DB_DIDescr.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_DB_DODescr.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_DB_DPar.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_DB_EVDescr.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_DB_GlobalParams.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_DB_ParamUnits.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_DB_TMRDescr.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_FB_Buttons.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_FC_AMresourceHandler.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_FC_AMresourceHandler_mod.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_fc_aninput.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_fc_anoutput.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_FC_ButtonsAdd.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_FC_CheckDO.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_FC_CheckDO_mod.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_fc_diginput.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_fc_digoutput.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_FC_Drivers.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_fc_evboundcompare.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_fc_evparhandler.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_fc_handlecommands.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_FC_InfoPLC.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_fc_MdlDiag.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_fc_mdlexchange.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_fc_measboundcompare.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_fc_timerhandler.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_fc_timerhandler_test.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_fc_updateglobaldata.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_FC_UpdateLST.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_FC_userAMresourceHandler(1).st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_FC_userAMresourceHandler.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_io.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_ModuleStateDiag.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_prg_rom.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_stp.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\_UDT_System.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\aisdrv.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\aisdrv_main.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\AISDrvData.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\aisdrvlib.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\aisdrvlib_main.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\AISUserData.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\alg_AutoAlgorithm.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\alg_UserAlgorithm_IN.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\argusdrv.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\ArgusDrvData.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\argusdrvlib.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\CFG_Alarm.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\CFG_AM.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\cfg_am_com.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\cfg_am_com_mod.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\CFG_AM_mod.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\CFG_Modes.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\Control_DO.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\FC_CheckDO_mod.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\FC_initators.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\imit.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\InitEvalPar.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\LogicalProgram.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\main.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\mdlDiag.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\memcpy.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\PRU_Link.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\SentSignals.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\User_Function_IM.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\UserFunction.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\usoNum.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\val.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\Years_and_Months.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="resource\LogicalProgram2.st">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="StaticAnalyzer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="_IRule.h">
+      <Filter>Файлы заголовков\_rules</Filter>
+    </ClInclude>
+    <ClInclude Include="ForbiddenPatternRule.h">
+      <Filter>Файлы заголовков\_rules</Filter>
+    </ClInclude>
+    <ClInclude Include="RealComparisonRule.h">
+      <Filter>Файлы заголовков\_rules</Filter>
+    </ClInclude>
+    <ClInclude Include="StructuralRulesRule.h">
+      <Filter>Файлы заголовков\_rules</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

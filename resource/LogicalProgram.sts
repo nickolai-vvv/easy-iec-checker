@@ -1,0 +1,54 @@
+PROGRAM PatternTest
+VAR
+    rValue      : REAL;
+    lrValue     : LREAL;
+    iValue      : INT;
+    diValue     : DINT;
+    wValue      : WORD;
+    dwValue     : DWORD;
+    counter     : INT;
+    flag        : BOOL;
+END_VAR
+
+(* TODO: this comment must be detected *)
+(* FIXME: this comment must be detected *)
+(* HACK: this comment must be detected *)
+
+rValue := 12.34;
+lrValue := 123.456;
+diValue := 100;
+dwValue := DWORD#16#000000FF;
+wValue := WORD#16#00FF;
+counter := 0;
+flag := FALSE;
+
+(* Forbidden conversions *)
+iValue := REAL_TO_INT(rValue);
+diValue := REAL_TO_DINT(rValue);
+
+iValue := LREAL_TO_INT(lrValue);
+diValue := LREAL_TO_DINT(lrValue);
+
+wValue := REAL_TO_WORD(rValue);
+dwValue := REAL_TO_DWORD(rValue);
+
+iValue := DINT_TO_INT(diValue);
+iValue := DWORD_TO_INT(dwValue);
+iValue := WORD_TO_INT(wValue);
+
+(* Forbidden WHILE loop *)
+WHILE counter < 10 DO
+    counter := counter + 1;
+
+    IF counter = 5 THEN
+        EXIT;
+    END_IF;
+END_WHILE;
+
+(* Forbidden REPEAT loop *)
+REPEAT
+    counter := counter - 1;
+UNTIL counter <= 0
+END_REPEAT;
+
+END_PROGRAM
