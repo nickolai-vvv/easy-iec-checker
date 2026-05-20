@@ -21,6 +21,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DiagnosticOutput.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -268,6 +271,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DiagnosticOutput.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
     <ClInclude Include="StaticAnalyzer.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>

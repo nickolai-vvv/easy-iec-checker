@@ -1,4 +1,5 @@
 #include "StaticAnalyzer.h"
+#include "DiagnosticOutput.h"
 #include "ForbiddenPatternRule.h"
 #include "RealComparisonRule.h"
 #include "StructuralRulesRule.h"
@@ -183,6 +184,8 @@ void StaticAnalyzer::analyzeSources() {
         // Главное архитектурное место:
         // StaticAnalyzer не знает, какое именно правило запускается.
         // Он просто проходит по массиву IRule и вызывает общий метод checkFile().
+        DiagnosticOutput::setDisplayPath(resolved, fileFromMake);
+
         for (const std::unique_ptr<IRule>& rule : rules_) {
             totalErrors_ += rule->checkFile(resolved);
         }

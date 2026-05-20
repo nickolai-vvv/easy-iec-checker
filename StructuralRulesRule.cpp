@@ -1,10 +1,8 @@
 #include "StructuralRulesRule.h"
+#include "DiagnosticOutput.h"
 
 #include <cctype>
-#include <chrono>
-#include <ctime>
 #include <fstream>
-#include <iomanip>
 #include <iostream>
 #include <map>
 #include <regex>
@@ -408,32 +406,13 @@ void StructuralRulesRule::printCompilerStyleError(
     size_t columnEnd,
     const std::string& message
 ) {
-    const auto now = std::chrono::system_clock::now();
-    const std::time_t nowTime = std::chrono::system_clock::to_time_t(now);
-
-    std::tm localTime{};
-
-#if defined(_WIN32)
-    localtime_s(&localTime, &nowTime);
-#else
-    localtime_r(&nowTime, &localTime);
-#endif
-
-    std::ostringstream timestamp;
-    timestamp << std::put_time(&localTime, "%d.%m.%Y %H:%M:%S");
-
-    std::cerr << timestamp.str()
-        << "  "
-        << file.filename().string()
-        << ":"
-        << lineNumber
-        << "."
-        << columnStart
-        << "-"
-        << columnEnd
-        << " : error C9001: "
-        << message
-        << "\n";
+    DiagnosticOutput::printCompilerStyleError(
+        file,
+        lineNumber,
+        columnStart,
+        columnEnd,
+        message
+    );
 }
 
 int StructuralRulesRule::checkExitInsideLoops(

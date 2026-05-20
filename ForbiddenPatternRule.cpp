@@ -1,13 +1,10 @@
 #include "ForbiddenPatternRule.h"
+#include "DiagnosticOutput.h"
 
 #include <cctype>
 #include <fstream>
 #include <iostream>
 #include <utility>
-#include <chrono>
-#include <ctime>
-#include <iomanip>
-#include <sstream>
 
 // Конструктор просто сохраняет список настроек.
 // std::move нужен, чтобы не копировать весь vector лишний раз.
@@ -242,37 +239,14 @@ void ForbiddenPatternRule::printCompilerStyleError(
     // Например REAL_TO_INT начинается в колонке 10 и имеет длину 11 символов:
     // main.st:5.10-20 error forbidden conversion REAL_TO_INT
 
-    const auto now = std::chrono::system_clock::now();
-    const std::time_t nowTime = std::chrono::system_clock::to_time_t(now);
-
-    std::tm localTime{};
-
-#if defined(_WIN32)
-    localtime_s(&localTime, &nowTime);
-#else
-    localtime_r(&nowTime, &localTime);
-#endif
-
-    std::ostringstream timestamp;
-    timestamp << std::put_time(&localTime, "%d.%m.%Y %H:%M:%S");
-
-    // В примере компилятора печатается только имя файла, без полного пути.
-    // Поэтому используем filename(). Если вам нужен полный путь, замените на file.string().
-    const std::string fileName = file.filename().string();
-
     const size_t matchLength = pattern.text.empty() ? 1 : pattern.text.size();
     const size_t columnEnd = column + matchLength - 1;
 
-    std::cerr << timestamp.str()
-        << "  "
-        << fileName
-        << ":"
-        << lineNumber
-        << "."
-        << column
-        << "-"
-        << columnEnd
-        << " : error C9001: "
-        << pattern.message
-        << "\n";
+    DiagnosticOutput::printCompilerStyleError(
+        file,
+        lineNumber,
+        column,
+        columnEnd,
+        pattern.message
+    );
 }

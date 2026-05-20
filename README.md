@@ -92,9 +92,7 @@ Relative paths are resolved against the project/resource location used by the an
 ## Example Output
 
 ```text
-resource/main.st:42:12: error: forbidden conversion REAL_TO_INT
-    value := REAL_TO_INT(sensorValue);
-             ^
+main.st:42.12-22 : error C9001: forbidden conversion REAL_TO_INT
 easy-iec-checker: found 1 error(s)
 ```
 

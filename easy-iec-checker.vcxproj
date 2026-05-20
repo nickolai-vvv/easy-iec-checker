@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DiagnosticOutput.cpp" />
     <ClCompile Include="ForbiddenPatternRule.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RealComparisonRule.cpp" />
@@ -212,6 +213,7 @@
     <None Include="resource\_UDT_System.st" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DiagnosticOutput.h" />
     <ClInclude Include="ForbiddenPatternRule.h" />
     <ClInclude Include="RealComparisonRule.h" />
     <ClInclude Include="StaticAnalyzer.h" />
