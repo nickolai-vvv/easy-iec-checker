@@ -33,6 +33,9 @@
     <ClCompile Include="ForbiddenPatternRule.cpp">
       <Filter>Исходные файлы\_rules</Filter>
     </ClCompile>
+    <ClCompile Include="DevelopmentRulesRule.cpp">
+      <Filter>Исходные файлы\_rules</Filter>
+    </ClCompile>
     <ClCompile Include="RealComparisonRule.cpp">
       <Filter>Исходные файлы\_rules</Filter>
     </ClCompile>
@@ -281,6 +284,9 @@
       <Filter>Файлы заголовков\_rules</Filter>
     </ClInclude>
     <ClInclude Include="ForbiddenPatternRule.h">
+      <Filter>Файлы заголовков\_rules</Filter>
+    </ClInclude>
+    <ClInclude Include="DevelopmentRulesRule.h">
       <Filter>Файлы заголовков\_rules</Filter>
     </ClInclude>
     <ClInclude Include="RealComparisonRule.h">

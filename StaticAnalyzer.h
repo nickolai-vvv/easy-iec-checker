@@ -56,7 +56,14 @@ public:
 
 private:
     // Путь к make.mk.
+    enum class RuleConfig {
+        Sil3,
+        Development
+    };
+
     std::filesystem::path makefile_;
+    RuleConfig ruleConfig_ = RuleConfig::Sil3;
+    std::string argumentError_;
 
     // Список .sts-файлов, найденных в make.mk.
     //
@@ -86,6 +93,8 @@ private:
     // Новые проверки добавляются здесь:
     // rules_.push_back(std::make_unique<NewRule>());
     void registerRules();
+    void registerSil3Rules();
+    void registerDevelopmentRules();
 
     // Второй этап пайплайна.
     //
@@ -140,6 +149,10 @@ private:
     // main.st,  -> main.st
     // main.st:  -> main.st
     static std::string cleanToken(std::string token);
+    static bool tryParseRuleConfig(
+        const std::string& value,
+        RuleConfig& config
+    );
 
     // Читает make.mk и склеивает строки, которые заканчиваются на '\'.
     //

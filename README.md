@@ -74,6 +74,23 @@ or:
 .\x64\Release\easy-iec-checker.exe -m .\resource\_make\make.mk
 ```
 
+By default, the checker uses the `sil3` rule configuration. You can select a configuration explicitly:
+
+```powershell
+.\x64\Release\easy-iec-checker.exe --config sil3
+.\x64\Release\easy-iec-checker.exe --config development
+.\x64\Release\easy-iec-checker.exe -c dev
+```
+
+The `development` configuration is a separate rule set. It does not include all `sil3` rules.
+
+Development checks currently include:
+
+- Explicit constant array indexes outside declared bounds, for example `arr[5]` for `ARRAY [0..2]`
+- Direct `REAL` / `LREAL` comparisons using `=` or `<>`
+- Use of a declared variable before it is initialized or assigned
+- Integer division assigned to `REAL` / `LREAL`, for example `r := a / b` where `a` and `b` are integer variables
+
 ## Makefile Format
 
 The checker scans the provided `make.mk` and extracts `.st` / `.sts` file paths from it. Paths may be written across multiple lines with `\`.

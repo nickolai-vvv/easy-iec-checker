@@ -1,5 +1,6 @@
 #include "StaticAnalyzer.h"
 #include "DiagnosticOutput.h"
+#include "DevelopmentRulesRule.h"
 #include "ForbiddenPatternRule.h"
 #include "RealComparisonRule.h"
 #include "StructuralRulesRule.h"
@@ -31,6 +32,24 @@ StaticAnalyzer::StaticAnalyzer(int argc, char** argv) {
             makefile_ = argv[i + 1];
             ++i;
         }
+        else if ((arg == "--config" || arg == "-c") && i + 1 < argc) {
+            if (!tryParseRuleConfig(argv[i + 1], ruleConfig_)) {
+                argumentError_ = "unknown config: " + std::string(argv[i + 1]) +
+                    " (supported: sil3, development)";
+            }
+            ++i;
+        }
+        else if (arg == "--config" || arg == "-c") {
+            argumentError_ = "missing value for " + arg;
+        }
+        else if (arg.rfind("--config=", 0) == 0) {
+            std::string value = arg.substr(std::string("--config=").size());
+
+            if (!tryParseRuleConfig(value, ruleConfig_)) {
+                argumentError_ = "unknown config: " + value +
+                    " (supported: sil3, development)";
+            }
+        }
         else if (!arg.empty() && arg[0] != '-') {
             makefile_ = arg;
         }
@@ -58,6 +77,10 @@ int StaticAnalyzer::run() {
 //
 // Проверяем make.mk и подготавливаем общий контекст.
 void StaticAnalyzer::prepare() {
+    if (!argumentError_.empty()) {
+        throw std::runtime_error(argumentError_);
+    }
+
     if (!std::filesystem::exists(makefile_)) {
         throw std::runtime_error(
             "makefile not found: " + makefile_.string()
@@ -82,6 +105,19 @@ void StaticAnalyzer::prepare() {
 void StaticAnalyzer::registerRules() {
     rules_.clear();
 
+    switch (ruleConfig_) {
+    case RuleConfig::Sil3:
+        registerSil3Rules();
+        break;
+
+    case RuleConfig::Development:
+        registerDevelopmentRules();
+        break;
+    }
+}
+
+void StaticAnalyzer::registerSil3Rules() {
+
     // Универсальное правило для простых запретов по текстовому паттерну.
     // Здесь оставляем только те методики, которым не нужен контекст.
     // EXIT убран из этого списка специально: теперь он проверяется точнее
@@ -90,8 +126,8 @@ void StaticAnalyzer::registerRules() {
         std::vector<ForbiddenPattern>{
                 // Запрещенные логические операции
 			{ "XOR", "XOR", "forbidden logical operator XOR", true, false},
-            { "OR" ,  "OR", "forbidden logical operator OR" , true, false },
-            { "AND", "AND", "forbidden logical operator AND", true, false },
+            //{ "OR" ,  "OR", "forbidden logical operator OR" , true, false },
+            //{ "AND", "AND", "forbidden logical operator AND", true, false },
             { "NOT", "NOT", "forbidden logical operator NOT", true, false },
 
                 // Запрещённые преобразования типов.
@@ -141,6 +177,11 @@ void StaticAnalyzer::registerRules() {
     // - пустой ELSE;
     // - пустая ветка CASE.
     rules_.push_back(std::make_unique<StructuralRulesRule>());
+}
+
+void StaticAnalyzer::registerDevelopmentRules() {
+    rules_.push_back(std::make_unique<RealComparisonRule>());
+    rules_.push_back(std::make_unique<DevelopmentRulesRule>());
 }
 
 // Второй этап пайплайна.
@@ -331,6 +372,37 @@ std::string StaticAnalyzer::cleanToken(std::string token) {
     std::replace(token.begin(), token.end(), '\\', '/');
 
     return token;
+}
+
+bool StaticAnalyzer::tryParseRuleConfig(
+    const std::string& value,
+    RuleConfig& config
+) {
+    std::string normalized = value;
+
+    std::transform(
+        normalized.begin(),
+        normalized.end(),
+        normalized.begin(),
+        [](unsigned char c) {
+            return static_cast<char>(std::tolower(c));
+        }
+    );
+
+    if (normalized == "sil3" ||
+        normalized == "sil-3" ||
+        normalized == "sil_3") {
+        config = RuleConfig::Sil3;
+        return true;
+    }
+
+    if (normalized == "development" ||
+        normalized == "dev") {
+        config = RuleConfig::Development;
+        return true;
+    }
+
+    return false;
 }
 
 // Читает make.mk как набор логических строк.
