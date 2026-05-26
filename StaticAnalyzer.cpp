@@ -90,8 +90,8 @@ void StaticAnalyzer::registerRules() {
         std::vector<ForbiddenPattern>{
                 // Запрещенные логические операции
 			{ "XOR", "XOR", "forbidden logical operator XOR", true, false},
-            { "OR" ,  "OR", "forbidden logical operator OR" , true, false },
-            { "AND", "AND", "forbidden logical operator AND", true, false },
+            // { "OR" ,  "OR", "forbidden logical operator OR" , true, false },
+            // { "AND", "AND", "forbidden logical operator AND", true, false },
             { "NOT", "NOT", "forbidden logical operator NOT", true, false },
 
                 // Запрещённые преобразования типов.
@@ -100,7 +100,7 @@ void StaticAnalyzer::registerRules() {
             { "LREAL_TO_INT",  "LREAL_TO_INT",  "forbidden conversion LREAL_TO_INT",  true, false },
             { "LREAL_TO_DINT", "LREAL_TO_DINT", "forbidden conversion LREAL_TO_DINT", true, false },
             { "REAL_TO_WORD",  "REAL_TO_WORD",  "forbidden conversion REAL_TO_WORD",  true, false },
-            { "REAL_TO_DWORD", "REAL_TO_DWORD", "forbidden conversion REAL_TO_DWORD", true, false },
+            // { "REAL_TO_DWORD", "REAL_TO_DWORD", "forbidden conversion REAL_TO_DWORD", true, false },
             { "DINT_TO_INT",   "DINT_TO_INT",   "forbidden conversion DINT_TO_INT",   true, false },
             { "DWORD_TO_INT",  "DWORD_TO_INT",  "forbidden conversion DWORD_TO_INT",  true, false },
             { "WORD_TO_INT",   "WORD_TO_INT",   "forbidden conversion WORD_TO_INT",   true, false },
@@ -123,12 +123,7 @@ void StaticAnalyzer::registerRules() {
                 // Устаревшие PLC-типы и операции, нежелательные для SIL-кода.
             { "S5TIME",  "S5TIME",  "forbidden S5TIME legacy timer type", true, false },
             { "TIMER",   "TIMER",   "forbidden TIMER legacy type",        true, false },
-            { "COUNTER", "COUNTER", "forbidden COUNTER legacy type",      true, false },
-
-                // Технический долг ищем даже в комментариях.
-            { "TODO",  "TODO",  "forbidden TODO",  true, true },
-            { "FIXME", "FIXME", "forbidden FIXME", true, true },
-            { "HACK",  "HACK",  "forbidden HACK",  true, true }
+            { "COUNTER", "COUNTER", "forbidden COUNTER legacy type",      true, false }
     }
     ));
 

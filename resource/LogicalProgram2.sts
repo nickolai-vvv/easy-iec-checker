@@ -10,7 +10,6 @@
     - LREAL_TO_INT(...)
     - LREAL_TO_DINT(...)
     - REAL_TO_WORD(...)
-    - REAL_TO_DWORD(...)
     - DINT_TO_INT(...)
     - DWORD_TO_INT(...)
     - WORD_TO_INT(...)
@@ -71,7 +70,7 @@ di1 := LREAL_TO_DINT(lr1);
 w1 := REAL_TO_WORD(r1);
 
 
-(* 6. Блокируем REAL_TO_DWORD(...) *)
+(* 6. REAL_TO_DWORD(...) сейчас разрешён *)
 dw1 := REAL_TO_DWORD(r1);
 
 

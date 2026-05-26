@@ -22,7 +22,7 @@ wValue := WORD#16#00FF;
 counter := 0;
 flag := FALSE;
 
-(* Forbidden conversions *)
+(* Forbidden conversions. REAL_TO_DWORD is kept here as an allowed conversion example. *)
 iValue := REAL_TO_INT(rValue);
 diValue := REAL_TO_DINT(rValue);
 

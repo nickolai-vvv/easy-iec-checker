@@ -6,8 +6,10 @@ Lightweight static analyzer for IEC 61131-3 Structured Text code.
 
 ## What It Checks
 
-- Forbidden logical operators: `XOR`, `OR`, `AND`, `NOT`
-- Forbidden numeric conversions, for example `REAL_TO_INT`, `REAL_TO_DINT`, `LREAL_TO_INT`, `DINT_TO_INT`
+- Forbidden logical operators: `XOR`, `NOT`
+- Allowed logical operators include `OR` and `AND`
+- Forbidden numeric conversions: `REAL_TO_INT`, `REAL_TO_DINT`, `LREAL_TO_INT`, `LREAL_TO_DINT`, `REAL_TO_WORD`, `DINT_TO_INT`, `DWORD_TO_INT`, `WORD_TO_INT`
+- Allowed numeric conversions include `REAL_TO_DWORD`
 - Forbidden loop and control-flow constructs: `WHILE`, `REPEAT`, `GOTO`, `LABEL`, `CONTINUE`
 - Pointer-like or unsafe access patterns: `POINTER`, `ADR`, `AT`, `ANY`
 - Legacy PLC types: `S5TIME`, `TIMER`, `COUNTER`
