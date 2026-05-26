@@ -95,7 +95,7 @@ void StaticAnalyzer::registerRules() {
             { "NOT", "NOT", "forbidden logical operator NOT", true, false },
 
                 // Запрещённые преобразования типов.
-            { "REAL_TO_INT", "REAL_TO_INT", "forbidden conversion REAL_TO_INT", true, false},
+            //{ "REAL_TO_INT", "REAL_TO_INT", "forbidden conversion REAL_TO_INT", true, false},
             { "REAL_TO_DINT",  "REAL_TO_DINT",  "forbidden conversion REAL_TO_DINT",  true, false },
             { "LREAL_TO_INT",  "LREAL_TO_INT",  "forbidden conversion LREAL_TO_INT",  true, false },
             { "LREAL_TO_DINT", "LREAL_TO_DINT", "forbidden conversion LREAL_TO_DINT", true, false },
