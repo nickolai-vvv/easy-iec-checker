@@ -51,6 +51,7 @@ void printCompilerStyleError(
     size_t lineNumber,
     size_t columnStart,
     size_t columnEnd,
+    int errorCode,
     const std::string& message
 ) {
     std::cerr
@@ -61,7 +62,9 @@ void printCompilerStyleError(
         << columnStart
         << "-"
         << columnEnd
-        << " : error C9001: "
+        << " : error C"
+        << errorCode
+        << ": "
         << message
         << "\n";
 }

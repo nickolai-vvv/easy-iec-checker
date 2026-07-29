@@ -1,129 +1,111 @@
 # easy-iec-checker
 
-Lightweight static analyzer for IEC 61131-3 Structured Text code.
+A static analyzer for IEC 61131-3 Structured Text. It reads `make.mk`, finds
+the `.st` files listed there, and prints diagnostics suitable for a terminal,
+IDE, or CI job.
 
-`easy-iec-checker` reads a project `make.mk`, finds listed `.sts` source files, and checks them for unsafe or forbidden PLC code patterns. Diagnostics are printed with file names, line numbers, columns, and short error messages, so the output can be used from a terminal, IDE, or CI job.
+## Checks
 
-## What It Checks
+- Explicit constant array index outside declared bounds.
+- Implicit numeric conversion in an assignment.
+- `REAL` / `LREAL` comparison using `=` or `<>`.
+- Reading a local variable before an initializer or an assignment.
+- Integer division whose result is assigned to `REAL` / `LREAL`.
 
-- Forbidden logical operators: `XOR`, `OR`, `AND`, `NOT`
-- Forbidden numeric conversions, for example `REAL_TO_INT`, `REAL_TO_DINT`, `LREAL_TO_INT`, `DINT_TO_INT`
-- Forbidden loop and control-flow constructs: `WHILE`, `REPEAT`, `GOTO`, `LABEL`, `CONTINUE`
-- Pointer-like or unsafe access patterns: `POINTER`, `ADR`, `AT`, `ANY`
-- Legacy PLC types: `S5TIME`, `TIMER`, `COUNTER`
-- Technical-debt markers: `TODO`, `FIXME`, `HACK`
-- Direct `REAL` comparisons using `=` or `<>`
-- Structural issues:
-  - `EXIT` inside loops
-  - `RETURN` in the middle of logic
-  - empty `ELSE` branches
-  - empty `CASE` branches
-  - assignments made only in one `IF` branch
-  - magic numbers in `IF` / `ELSIF` conditions
+For example, `Values[3]` is invalid for `ARRAY [0..2] OF INT`. An assignment
+such as `R := A`, where `R` is `REAL` and `A` is `INT`, requires an explicit
+conversion. `Values[3] := A` is not a type conversion when both values are
+`INT`, but it still violates the array bounds.
+
+## Architecture
+
+```text
+make.mk -> .st source list -> ProjectAnalysis -> rules -> diagnostics
+```
+
+`StaticAnalyzer` is an orchestrator. It finds source files, builds one
+`ProjectAnalysis`, then runs the registered rules.
+
+`ProjectAnalysis` is the shared project model: comment-free source lines,
+declarations, variable types, initializers, and array bounds. A rule can
+therefore resolve declarations from another source file listed in the same
+`make.mk`.
+
+Before analysis, `//` comments and `(* ... *)` block comments are removed from
+source lines. Rule diagnostics are therefore never emitted for text inside a
+comment.
+
+Each rule implements one policy and never reads source files itself.
 
 ## Build
 
-The project is a Visual Studio C++ project.
-
-Open `easy-iec-checker.slnx` in Visual Studio and build the project.
-
-To build from the command line, open **Developer PowerShell for Visual Studio** in the repository folder and run:
+Open `easy-iec-checker.slnx` in Visual Studio and build the project. Or run the
+following command from Developer PowerShell for Visual Studio:
 
 ```powershell
 msbuild .\easy-iec-checker.vcxproj /p:Configuration=Release /p:Platform=x64
 ```
 
-Do not run this command from a regular PowerShell unless `msbuild` is already in `PATH`.
-
-After a `Release|x64` build, the executable is usually created as:
+The executable for this configuration is usually located at:
 
 ```text
 .\x64\Release\easy-iec-checker.exe
-```
-
-If you build another configuration, the path may be different. You can find the executable with:
-
-```powershell
-Get-ChildItem -Recurse -Filter easy-iec-checker.exe
 ```
 
 ## Usage
 
-Run the checker from the repository root:
+From the repository root:
 
 ```powershell
 .\x64\Release\easy-iec-checker.exe
 ```
 
-By default, it uses:
-
-```text
-.\resource\_make\make.mk
-```
-
-You can also pass the makefile path explicitly:
+By default, the analyzer uses `resource/_make/make.mk`. You can pass another
+makefile explicitly:
 
 ```powershell
 .\x64\Release\easy-iec-checker.exe .\resource\_make\make.mk
-```
-
-or:
-
-```powershell
 .\x64\Release\easy-iec-checker.exe --makefile .\resource\_make\make.mk
 .\x64\Release\easy-iec-checker.exe -m .\resource\_make\make.mk
 ```
 
-By default, the checker uses the `sil3` rule configuration. You can select a configuration explicitly:
+## make.mk Format
 
-```powershell
-.\x64\Release\easy-iec-checker.exe --config sil3
-.\x64\Release\easy-iec-checker.exe --config development
-.\x64\Release\easy-iec-checker.exe -c dev
-```
-
-The `development` configuration is a separate rule set. It does not include all `sil3` rules.
-
-Development checks currently include:
-
-- Explicit constant array indexes outside declared bounds, for example `arr[5]` for `ARRAY [0..2]`
-- Direct `REAL` / `LREAL` comparisons using `=` or `<>`
-- Use of a declared variable before it is initialized or assigned
-- Integer division assigned to `REAL` / `LREAL`, for example `r := a / b` where `a` and `b` are integer variables
-
-## Makefile Format
-
-The checker scans the provided `make.mk` and extracts `.st` / `.sts` file paths from it. Paths may be written across multiple lines with `\`.
-
-Example:
+The analyzer extracts `.st` source paths from the makefile. Line continuations
+using `\` and relative paths are supported.
 
 ```makefile
 FILES = \
-    main.st \
     LogicalProgram.st \
     Regul/RegulProgram.st
 ```
 
-Relative paths are resolved against the project/resource location used by the analyzer.
+## Diagnostics and Exit Codes
 
-## Example Output
+Every rule uses the same diagnostic format:
 
 ```text
-main.st:42.12-22 : error C9001: forbidden conversion REAL_TO_INT
+LogicalProgram3.st:25.8-8 : error C9003: comparison of floating-point values using '=' is forbidden
 easy-iec-checker: found 1 error(s)
 ```
 
-## Exit Codes
+| Diagnostic | Rule |
+| --- | --- |
+| `C9001` | Array index outside declared bounds. |
+| `C9002` | Forbidden implicit numeric conversion. |
+| `C9003` | Forbidden `REAL` / `LREAL` comparison with `=` or `<>`. |
+| `C9004` | Use of an uninitialized variable is forbidden. |
+| `C9005` | Forbidden integer division before assignment to `REAL` / `LREAL`. |
 
 | Code | Meaning |
 | --- | --- |
-| `0` | Analysis completed successfully, no issues found |
-| `1` | Analysis completed, issues found |
-| `2` | Fatal runtime error, for example missing makefile |
+| `0` | Analysis completed successfully; no issues found. |
+| `1` | Analysis completed and rule violations were found. |
+| `2` | Startup error, for example a missing `make.mk`. |
 
-## Adding New Rules
+## Adding a Rule
 
-Rules implement the `IRule` interface:
+Create a class that implements `IRule`:
 
 ```cpp
 class IRule {
@@ -131,8 +113,12 @@ public:
     virtual ~IRule() = default;
     virtual std::string name() const = 0;
     virtual std::string description() const = 0;
-    virtual int checkFile(const std::filesystem::path& file) const = 0;
+    virtual int check(const ProjectAnalysis& project) const = 0;
 };
 ```
 
-Simple text-based bans can be added to the `ForbiddenPatternRule` configuration in `StaticAnalyzer::registerRules()`. More complex checks should be implemented as a separate rule class and registered in the same method.
+The rule traverses `project.sources()`, uses `ProjectAnalysis::findVariable`
+and the common type helpers, then emits diagnostics through
+`ProjectAnalysis::report`. Finally, register it in
+`StaticAnalyzer::registerRules()`. No makefile parsing, file reading, or
+declaration parsing needs to be duplicated.

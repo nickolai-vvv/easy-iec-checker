@@ -15,7 +15,7 @@
 //
 // Сейчас он:
 // 1. Читает make.mk.
-// 2. Достаёт из него список .sts-файлов.
+// 2. Достаёт из него список .st-файлов.
 // 3. Регистрирует набор правил анализа.
 // 4. Открывает каждый найденный файл.
 // 5. Запускает каждое правило для каждого файла.
@@ -56,16 +56,10 @@ public:
 
 private:
     // Путь к make.mk.
-    enum class RuleConfig {
-        Sil3,
-        Development
-    };
-
     std::filesystem::path makefile_;
-    RuleConfig ruleConfig_ = RuleConfig::Sil3;
     std::string argumentError_;
 
-    // Список .sts-файлов, найденных в make.mk.
+    // Список .st-файлов, найденных в make.mk.
     //
     // Здесь хранятся пути ровно в том виде,
     // в каком они были извлечены из make.mk.
@@ -93,12 +87,10 @@ private:
     // Новые проверки добавляются здесь:
     // rules_.push_back(std::make_unique<NewRule>());
     void registerRules();
-    void registerSil3Rules();
-    void registerDevelopmentRules();
 
     // Второй этап пайплайна.
     //
-    // Извлекает список .sts-файлов из make.mk.
+    // Извлекает список .st-файлов из make.mk.
     void collectSources();
 
     // Третий этап пайплайна.
@@ -149,11 +141,6 @@ private:
     // main.st,  -> main.st
     // main.st:  -> main.st
     static std::string cleanToken(std::string token);
-    static bool tryParseRuleConfig(
-        const std::string& value,
-        RuleConfig& config
-    );
-
     // Читает make.mk и склеивает строки, которые заканчиваются на '\'.
     //
     // Make-файлы часто пишут так:
@@ -165,7 +152,7 @@ private:
     // Для анализатора это должна быть одна логическая строка.
     std::vector<std::string> readMakeLogicalLines() const;
 
-    // Извлекает из make.mk список .sts-файлов.
+    // Извлекает из make.mk список .st-файлов.
     std::vector<std::filesystem::path> extractStsFilesFromMakefile() const;
 
     // Превращает путь из make.mk в реальный путь к файлу на диске.

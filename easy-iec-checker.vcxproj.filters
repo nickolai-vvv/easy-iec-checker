@@ -30,16 +30,10 @@
     <ClCompile Include="StaticAnalyzer.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="ForbiddenPatternRule.cpp">
-      <Filter>Исходные файлы\_rules</Filter>
+    <ClCompile Include="ProjectAnalysis.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="DevelopmentRulesRule.cpp">
-      <Filter>Исходные файлы\_rules</Filter>
-    </ClCompile>
-    <ClCompile Include="RealComparisonRule.cpp">
-      <Filter>Исходные файлы\_rules</Filter>
-    </ClCompile>
-    <ClCompile Include="StructuralRulesRule.cpp">
+    <ClCompile Include="SafetyRules.cpp">
       <Filter>Исходные файлы\_rules</Filter>
     </ClCompile>
   </ItemGroup>
@@ -283,16 +277,10 @@
     <ClInclude Include="_IRule.h">
       <Filter>Файлы заголовков\_rules</Filter>
     </ClInclude>
-    <ClInclude Include="ForbiddenPatternRule.h">
-      <Filter>Файлы заголовков\_rules</Filter>
+    <ClInclude Include="ProjectAnalysis.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="DevelopmentRulesRule.h">
-      <Filter>Файлы заголовков\_rules</Filter>
-    </ClInclude>
-    <ClInclude Include="RealComparisonRule.h">
-      <Filter>Файлы заголовков\_rules</Filter>
-    </ClInclude>
-    <ClInclude Include="StructuralRulesRule.h">
+    <ClInclude Include="SafetyRules.h">
       <Filter>Файлы заголовков\_rules</Filter>
     </ClInclude>
   </ItemGroup>

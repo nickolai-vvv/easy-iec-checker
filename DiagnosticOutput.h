@@ -15,6 +15,7 @@ void printCompilerStyleError(
     size_t lineNumber,
     size_t columnStart,
     size_t columnEnd,
+    int errorCode,
     const std::string& message
 );
 

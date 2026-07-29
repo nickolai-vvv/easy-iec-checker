@@ -128,12 +128,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DiagnosticOutput.cpp" />
-    <ClCompile Include="DevelopmentRulesRule.cpp" />
-    <ClCompile Include="ForbiddenPatternRule.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="RealComparisonRule.cpp" />
+    <ClCompile Include="ProjectAnalysis.cpp" />
+    <ClCompile Include="SafetyRules.cpp" />
     <ClCompile Include="StaticAnalyzer.cpp" />
-    <ClCompile Include="StructuralRulesRule.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resource\aisdrv.st" />
@@ -215,11 +213,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DiagnosticOutput.h" />
-    <ClInclude Include="DevelopmentRulesRule.h" />
-    <ClInclude Include="ForbiddenPatternRule.h" />
-    <ClInclude Include="RealComparisonRule.h" />
+    <ClInclude Include="ProjectAnalysis.h" />
+    <ClInclude Include="SafetyRules.h" />
     <ClInclude Include="StaticAnalyzer.h" />
-    <ClInclude Include="StructuralRulesRule.h" />
     <ClInclude Include="_IRule.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

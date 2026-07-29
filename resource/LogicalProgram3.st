@@ -16,7 +16,7 @@ END_VAR
 Values[1] := 10;
 
 (* ERROR: explicit constant index is outside ARRAY [0..2]. *)
-Values[2] := 20;
+Values[3] := 20;
 
 (* OK: variable index is not checked by this rule yet. *)
 Values[Index] := 30;

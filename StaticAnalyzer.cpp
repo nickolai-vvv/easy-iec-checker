@@ -1,9 +1,7 @@
 #include "StaticAnalyzer.h"
 #include "DiagnosticOutput.h"
-#include "DevelopmentRulesRule.h"
-#include "ForbiddenPatternRule.h"
-#include "RealComparisonRule.h"
-#include "StructuralRulesRule.h"
+#include "ProjectAnalysis.h"
+#include "SafetyRules.h"
 
 #include <algorithm>
 #include <cctype>
@@ -31,24 +29,6 @@ StaticAnalyzer::StaticAnalyzer(int argc, char** argv) {
         if ((arg == "--makefile" || arg == "-m") && i + 1 < argc) {
             makefile_ = argv[i + 1];
             ++i;
-        }
-        else if ((arg == "--config" || arg == "-c") && i + 1 < argc) {
-            if (!tryParseRuleConfig(argv[i + 1], ruleConfig_)) {
-                argumentError_ = "unknown config: " + std::string(argv[i + 1]) +
-                    " (supported: sil3, development)";
-            }
-            ++i;
-        }
-        else if (arg == "--config" || arg == "-c") {
-            argumentError_ = "missing value for " + arg;
-        }
-        else if (arg.rfind("--config=", 0) == 0) {
-            std::string value = arg.substr(std::string("--config=").size());
-
-            if (!tryParseRuleConfig(value, ruleConfig_)) {
-                argumentError_ = "unknown config: " + value +
-                    " (supported: sil3, development)";
-            }
         }
         else if (!arg.empty() && arg[0] != '-') {
             makefile_ = arg;
@@ -104,18 +84,14 @@ void StaticAnalyzer::prepare() {
 // Дальше он работает только через интерфейс IRule.
 void StaticAnalyzer::registerRules() {
     rules_.clear();
-
-    switch (ruleConfig_) {
-    case RuleConfig::Sil3:
-        registerSil3Rules();
-        break;
-
-    case RuleConfig::Development:
-        registerDevelopmentRules();
-        break;
-    }
+    rules_.push_back(std::make_unique<ArrayBoundsRule>());
+    rules_.push_back(std::make_unique<ImplicitConversionRule>());
+    rules_.push_back(std::make_unique<RealComparisonRule>());
+    rules_.push_back(std::make_unique<UninitializedVariableRule>());
+    rules_.push_back(std::make_unique<IntegerDivisionRule>());
 }
 
+#if 0 // Устаревшие наборы правил. В проекте используются только пять правил выше.
 void StaticAnalyzer::registerSil3Rules() {
 
     // Универсальное правило для простых запретов по текстовому паттерну.
@@ -183,6 +159,7 @@ void StaticAnalyzer::registerDevelopmentRules() {
     rules_.push_back(std::make_unique<RealComparisonRule>());
     rules_.push_back(std::make_unique<DevelopmentRulesRule>());
 }
+#endif
 
 // Второй этап пайплайна.
 //
@@ -193,7 +170,7 @@ void StaticAnalyzer::collectSources() {
 
     if (sourceFiles_.empty()) {
         std::cerr << makefile_.string()
-            << ": warning: no .sts files found in makefile\n";
+            << ": warning: no .st files found in makefile\n";
     }
 }
 
@@ -208,6 +185,7 @@ void StaticAnalyzer::analyzeSources() {
         return;
     }
 
+    std::vector<std::filesystem::path> resolvedFiles;
     for (const std::filesystem::path& fileFromMake : sourceFiles_) {
         // make.mk может содержать относительные пути.
         // Поэтому сначала ищем реальный файл на диске.
@@ -226,10 +204,12 @@ void StaticAnalyzer::analyzeSources() {
         // StaticAnalyzer не знает, какое именно правило запускается.
         // Он просто проходит по массиву IRule и вызывает общий метод checkFile().
         DiagnosticOutput::setDisplayPath(resolved, fileFromMake);
+        resolvedFiles.push_back(resolved);
+    }
 
-        for (const std::unique_ptr<IRule>& rule : rules_) {
-            totalErrors_ += rule->checkFile(resolved);
-        }
+    const ProjectAnalysis project = ProjectAnalysis::load(resolvedFiles);
+    for (const std::unique_ptr<IRule>& rule : rules_) {
+        totalErrors_ += rule->check(project);
     }
 }
 
@@ -374,37 +354,6 @@ std::string StaticAnalyzer::cleanToken(std::string token) {
     return token;
 }
 
-bool StaticAnalyzer::tryParseRuleConfig(
-    const std::string& value,
-    RuleConfig& config
-) {
-    std::string normalized = value;
-
-    std::transform(
-        normalized.begin(),
-        normalized.end(),
-        normalized.begin(),
-        [](unsigned char c) {
-            return static_cast<char>(std::tolower(c));
-        }
-    );
-
-    if (normalized == "sil3" ||
-        normalized == "sil-3" ||
-        normalized == "sil_3") {
-        config = RuleConfig::Sil3;
-        return true;
-    }
-
-    if (normalized == "development" ||
-        normalized == "dev") {
-        config = RuleConfig::Development;
-        return true;
-    }
-
-    return false;
-}
-
 // Читает make.mk как набор логических строк.
 std::vector<std::string> StaticAnalyzer::readMakeLogicalLines() const {
     std::ifstream in(makefile_);
@@ -468,7 +417,7 @@ std::vector<std::filesystem::path> StaticAnalyzer::extractStsFilesFromMakefile()
         while (iss >> token) {
             token = cleanToken(token);
 
-            if (endsWithCaseInsensitive(token, ".sts")) {
+            if (endsWithCaseInsensitive(token, ".st")) {
                 uniqueFiles.insert(std::filesystem::path(token));
             }
         }
